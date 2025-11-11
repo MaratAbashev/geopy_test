@@ -1,0 +1,34 @@
+﻿<#@ template language="C#" debug="True" hostSpecific="True"                                      #>
+<#@ CleanupBehavior processor="T4VSHost" CleanupAfterProcessingtemplate="true"                   #>
+<#@ output extension=".generated.cs"                                                             #>
+<#@ include file="$(LinqToDBT4PostgreSQLTemplatesPath)LinqToDB.PostgreSQL.ttinclude" once="true" #>
+<#@ include file="$(LinqToDBT4TemplatesPath)PluralizationService.ttinclude"          once="true" #>
+<#
+	// Install linq2db nuget package.
+	// Install one of the following packages:
+	// https://www.nuget.org/packages/Npgsql for Npgsql
+	// See LinqToDB.Templates/README.md for more details.
+
+	// Configuring schema load process
+	//
+//	GetSchemaOptions.GetProcedures = true;
+
+	// Configuring generation process
+	//
+	NamespaceName        = "GeopyTestConsoleApp.DataModels";
+//	DataContextName      = "MyDB";
+	GenerateSchemaAsType = true;
+//	GetDataOptionsMethod = "GetDataOptions({0})";
+
+	// Loading metadata
+	//
+	LoadPostgreSQLMetadata("localhost", "5433", "geopy_db", "postgres", "postgres");
+//	LoadPostgreSQLMetadata(string connectionString);
+
+	// Customizing generation process
+	//
+//	GetColumn("Order", "OrderID").MemberName = "ID";
+//	GetColumn("Order", "Day").    Type       = "DayOfWeek";
+
+	GenerateModel();
+#>
